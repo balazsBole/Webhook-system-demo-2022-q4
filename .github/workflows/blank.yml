@@ -27,14 +27,12 @@ jobs:
           
           packageID=$EVENT_CONTEXT | jq -r '.client_payload.packageId'
           
-          if [[ $packageID != "test-pacakge-id" ]];then
-  
-          curl --location --request POST 'https://cloud.home-test.mendix.com/api/1/apps/testcp266studio/environments/test/transport' \
-          --header 'Content-Type: application/json' \
-          --header 'Mendix-Username: deptestuser@emp.ire' \
-          --header "Mendix-ApiKey: MENDIX_API_KEY" \
-          --data-raw "{ \"PackageId\" : $packageID}"
-          
+          if [[ $packageID != *"test"* ]];then
+            curl --location --request POST 'https://cloud.home-test.mendix.com/api/1/apps/testcp266studio/environments/test/transport' \
+            --header 'Content-Type: application/json' \
+            --header 'Mendix-Username: deptestuser@emp.ire' \
+            --header "Mendix-ApiKey: $MENDIX_API_KEY" \
+            --data-raw "{ \"PackageId\" : $packageID}"
           fi
 
           
