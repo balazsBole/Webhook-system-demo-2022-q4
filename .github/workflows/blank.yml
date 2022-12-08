@@ -24,3 +24,13 @@ jobs:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
           echo $EVENT_CONTEXT | jq -r '.client_payload'
+          
+          packageID=$EVENT_CONTEXT | jq -r '.client_payload.packageId'
+
+          curl --location --request POST 'https://cloud.home-test.mendix.com/api/1/apps/testcp266studio/environments/test/transport' \
+          --header 'Content-Type: application/json' \
+          --header 'Mendix-Username: deptestuser@emp.ire' \
+          --header "Mendix-ApiKey: $MENDIX_API_KEY" \
+          --data-raw "{ \"PackageId\" : $packageID}"
+
+          
