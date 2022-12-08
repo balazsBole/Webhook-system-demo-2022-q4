@@ -19,6 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - env:
-          EVENT_CONTEXT: ${{ toJSON(github.event)['client_payload'] }}
+          EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
-          echo $EVENT_CONTEXT
+          echo $EVENT_CONTEXT | jq -r '.client_payload'
