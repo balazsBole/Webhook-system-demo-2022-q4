@@ -23,9 +23,9 @@ jobs:
       - env:
           EVENT_CONTEXT: ${{ toJSON(github.event) }}
         run: |
-          echo $EVENT_CONTEXT | jq -r '.client_payload'
+          echo $EVENT_CONTEXT | jq -r '.packageId'
           
-          packageID=$EVENT_CONTEXT | jq -r '.client_payload.packageId'
+          packageID=$EVENT_CONTEXT | jq -r '.packageId'
           
           if [[ $packageID != *"test"* ]];then
             curl --location --request POST 'https://cloud.home-test.mendix.com/api/1/apps/testcp266studio/environments/test/transport' \
